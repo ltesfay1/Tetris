@@ -1,7 +1,5 @@
 package game_design;
 
-import java.applet.Applet;
-import java.applet.AudioClip;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -9,9 +7,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.net.MalformedURLException;
-import java.net.URL;
 
+
+import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.Timer;
@@ -30,8 +28,8 @@ public class Board extends JPanel implements ActionListener {
 	int numLinesRemoved = 0;
 	int curX = 0;
 	int curY = 0;
-	int pieceCount = 0, score = 0;
-	JLabel statusbar;
+	int pieceCount = 0, score = 0, count = 0, highestScore = 0;
+	JLabel statusbar, highScoreLabel;
 	Shape curPiece;
 	Tetrominoes[] board;
 
@@ -41,14 +39,18 @@ public class Board extends JPanel implements ActionListener {
 		curPiece = new Shape();
 		timer = new Timer(400, this);
 		timer.start(); 
-	
+		highScoreLabel = parent.getHighScoreBar();
+		highestScore = 0;
 		statusbar =  parent.getStatusBar();
 		statusbar.setText("Score: 0");
+		parent.setScore(score);
 		board = new Tetrominoes[BoardWidth * BoardHeight];
 		addKeyListener(new TAdapter());
 		clearBoard();  
 	}
-
+//	public int getScore(){
+//		return score;
+//	}
 	public void actionPerformed(ActionEvent e) {
 		if (isFallingFinished) {
 			isFallingFinished = false;
@@ -79,11 +81,13 @@ public class Board extends JPanel implements ActionListener {
 	private void pause() {
 		if (!isStarted)
 			return;
-
+	
 		isPaused = !isPaused;
 		if (isPaused) {
+
 			timer.stop();
 			statusbar.setText("Paused. Score: " + score);
+			
 		} else {
 			timer.start();
 			score = (numLinesRemoved * 10 + pieceCount * 5);
@@ -128,9 +132,7 @@ public class Board extends JPanel implements ActionListener {
 				board[(row) * BoardWidth + col + BoardWidth * (BoardWidth - col - 1) - col - row * (BoardWidth - 1)] = temp;
 			}
 		}
-		//		repaint();
-		//		removeEmptyLines();
-		//		groundPieces();
+
 	}
 
 	private void rotateContentsRight() {
@@ -142,9 +144,7 @@ public class Board extends JPanel implements ActionListener {
 				board[row * BoardWidth + col + BoardWidth * (col - row)+ BoardWidth - row - col - 1 ] = temp;
 			}
 		}
-		//		repaint();
-		//		removeEmptyLines();
-		//		groundPieces();
+
 	}
 
 	private void groundPieces() {
@@ -214,10 +214,28 @@ public class Board extends JPanel implements ActionListener {
 			timer.stop();
 			isStarted = false;
 			score -= 5;
+			count = -1;
+			highScoreLabel.setText("Highest Score: " + calcHighScore());
+			ImageIcon image = new ImageIcon("http:///stagetetris.globalhost.com//wp-content//uploads//2014/04//Master_TetrisLogo_R_700x4562.png");
+			highScoreLabel.setIcon(image);
+			add(highScoreLabel);
+			
+			
 			statusbar.setText("Game Over. Score: " + score);
 		}
 	}
+	public int calcHighScore(){
+     
+		if (score >= highestScore) {
+			highestScore = score;
+			} 
+		return highestScore;
+	}
+	public int getScore(){
+		return score;
+	}
 
+	
 	private boolean tryMove(Shape newPiece, int newX, int newY) {
 		for (int i = 0; i < 3; ++i) {
 			int x = newX + newPiece.x(i);
