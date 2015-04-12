@@ -14,14 +14,11 @@ public class Shape {
 	private int[][][] coordsTable;
 
 	public Shape() {
-
 		coords = new int[3][3];
 		setShape(Tetrominoes.NoShape);
-
 	}
 
 	public void setShape(Tetrominoes shape) {
-
 		coordsTable = new int[][][] { { { 0, 0 }, { 0, 0 }, { 0, 0 } },
 				{ { 0, -1 }, { 0, 0 }, { 0, 1 } },
 				{ { 0, 0 }, { -1, 0 }, { 0, 1 } },
@@ -34,7 +31,6 @@ public class Shape {
 			}
 		}
 		pieceShape = shape;
-
 	}
 
 	private void setX(int index, int x) {
