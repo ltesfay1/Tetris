@@ -26,9 +26,11 @@ public class Tetris extends JFrame {
 		Clip sound = loadClip("C:\\workspaceEclipseLuna\\Tetris-Revamp\\Tetris-Revamp\\Tetristheme.wav");
 
 		sound.loop(Clip.LOOP_CONTINUOUSLY);
+		
 		board.start();
 		setSize(400, 800);
 		setTitle("Tetris Revamped");
+	
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 	}
 	public void setScore(int score1){

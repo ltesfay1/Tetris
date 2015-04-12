@@ -124,24 +124,24 @@ public class Board extends JPanel implements ActionListener {
 	}
 
 	private void rotateContentsLeft() {
-		for (int row = 0; row < BoardWidth / 2 + BoardWidth % 2; row ++) {
-			for (int col = 0; col < BoardWidth / 2 + BoardWidth % 2; col++) {
+		for (int row = 0; row < BoardWidth; row ++) {
+			for (int col = 0; col < BoardWidth; col++) {
 				Tetrominoes temp = board[(row) * BoardWidth + col];
-				board[( row) * BoardWidth + col] = 
-						board[( row) * BoardWidth + col + BoardWidth * (BoardWidth - col - 1) - col - row * (BoardWidth - 1)];
-				board[(row) * BoardWidth + col + BoardWidth * (BoardWidth - col - 1) - col - row * (BoardWidth - 1)] = temp;
+				board[row * BoardWidth + col] = 
+						board[row * BoardWidth + col + BoardWidth * (BoardWidth - col - 1) - col - row * (BoardWidth - 1)];
+				board[row * BoardWidth + col + BoardWidth * (BoardWidth - col - 1) - col - row * (BoardWidth - 1)] = temp;
 			}
 		}
 
 	}
 
 	private void rotateContentsRight() {
-		for (int row = 0; row < BoardWidth / 2 + BoardWidth % 2; row ++) {
-			for (int col = 0; col < BoardWidth / 2 + BoardWidth % 2; col++) {
-				Tetrominoes temp = board[( col) * BoardWidth + row];
-				board[( col) * BoardWidth + row] = 
-						board[( row) * BoardWidth + col + BoardWidth * (BoardWidth - row - 1) - row - col * (BoardWidth - 1)];
-				board[row * BoardWidth + col + BoardWidth * (col - row)+ BoardWidth - row - col - 1 ] = temp;
+		for (int row = 0; row < BoardWidth; row ++) {
+			for (int col = 0; col < BoardWidth; col++) {
+				Tetrominoes temp = board[col * BoardWidth + row];
+				board[col * BoardWidth + row] = 
+						board[row * BoardWidth + col + BoardWidth * (col - row + 1) - row - col - 1];
+				board[row * BoardWidth + col + BoardWidth * (col - row + 1) - row - col - 1] = temp;
 			}
 		}
 
