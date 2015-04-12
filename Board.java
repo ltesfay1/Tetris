@@ -1,5 +1,7 @@
 package game_design;
 
+import java.applet.Applet;
+import java.applet.AudioClip;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -7,6 +9,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.net.MalformedURLException;
+import java.net.URL;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -31,12 +35,13 @@ public class Board extends JPanel implements ActionListener {
 	Shape curPiece;
 	Tetrominoes[] board;
 
+
 	public Board(Tetris parent) {
 		setFocusable(true);
 		curPiece = new Shape();
 		timer = new Timer(400, this);
 		timer.start(); 
-
+	
 		statusbar =  parent.getStatusBar();
 		statusbar.setText("Score: 0");
 		board = new Tetrominoes[BoardWidth * BoardHeight];
