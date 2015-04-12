@@ -303,6 +303,8 @@ public class Board extends JPanel implements ActionListener {
 			}
 		}
 
+		
+		
 		if (numEmptyLines > 0) {
 			numLinesRemoved += numEmptyLines;
 			isFallingFinished = true;
